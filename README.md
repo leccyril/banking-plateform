@@ -19,7 +19,7 @@ You’ll start by editing this README file to learn how to edit a file in Bitbuc
 # Concepts
 
 ### The main concepts used in this projects are :
-![Clean architecture.](/images/cleanarchi.webp "Clean architecture."
+![Clean architecture.](/images/cleanarchi.webp) 
 * Hexagonal architecture
 * Reactive streams
 * MongoDB
