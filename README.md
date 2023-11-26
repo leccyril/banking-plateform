@@ -15,3 +15,16 @@ You’ll start by editing this README file to learn how to edit a file in Bitbuc
 
 
 ---
+
+# Concepts
+
+### The main concepts used in this projects are :
+![Clean architecture.](/images/cleanarchi.webp "Clean architecture."
+* Hexagonal architecture
+* Reactive streams
+* MongoDB
+* Reactive Mongo
+* SpringBoot 3.2
+* Rest API
+
+We used mapper and dto juste for the poc, in reality it is often not useful
