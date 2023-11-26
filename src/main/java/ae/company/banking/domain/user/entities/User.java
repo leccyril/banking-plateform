@@ -52,14 +52,14 @@ public class User {
 
 	public List<PersonalAccount> getPersonalAccounts() {
 		if( accounts == null ){
-			return new ArrayList<>();
+			accounts =  new ArrayList<>();
 		}
 		return accounts;
 	}
 
 	public List<BeneficiaryAccount> getBeneficiaries() {
 		if( beneficiaries == null ){
-			return new ArrayList<>();
+			beneficiaries = new ArrayList<>();
 		}
 		return beneficiaries;
 	}
