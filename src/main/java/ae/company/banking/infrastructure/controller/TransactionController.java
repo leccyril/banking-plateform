@@ -60,7 +60,7 @@ public class TransactionController {
 		return withdraw.execute( dto ).map( TransactionMapper::mapToTransactionDto );
 	}
 
-	@PostMapping( "/transfert" )
+	@PostMapping( "/transfer" )
 	@ResponseStatus( HttpStatus.CREATED )
 	Mono<TransactionDto> transfer(@RequestBody TransferDto dto) {
 		return transfer.execute( dto ).map( TransactionMapper::mapToTransactionDto );
