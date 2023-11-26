@@ -15,6 +15,7 @@ public class UserMapper {
 				.lastName( user.getLastName() )
 				.address( user.getAddress() )
 				.accounts( user.getPersonalAccounts() )
+				.beneficiaries( user.getBeneficiaries() )
 				.phoneNumber( user.getPhoneNumber() )
 				.build();
 	}
@@ -26,7 +27,7 @@ public class UserMapper {
 				.phoneNumber( userDto.getPhoneNumber() )
 				.address( userDto.getAddress() )
 				.accounts( userDto.getAccounts() )
-				.accounts( userDto.getAccounts() )
+				.beneficiaries( userDto.getBeneficiaries() )
 				.build();
 	}
 }

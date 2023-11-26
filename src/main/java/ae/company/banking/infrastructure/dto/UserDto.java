@@ -1,8 +1,8 @@
 package ae.company.banking.infrastructure.dto;
 
-import ae.company.banking.domain.user.entities.PersonalAccount;
 import ae.company.banking.domain.user.entities.Address;
-import ae.company.banking.domain.user.entities.User;
+import ae.company.banking.domain.user.entities.BeneficiaryAccount;
+import ae.company.banking.domain.user.entities.PersonalAccount;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import java.util.List;
 import lombok.Builder;
@@ -16,6 +16,6 @@ public class UserDto {
 	private String fullName;
 	private PhoneNumber phoneNumber;
 	private Address address;
-	private List<User> contacts;
 	private List<PersonalAccount> accounts;
+	private List<BeneficiaryAccount> beneficiaries;
 }
