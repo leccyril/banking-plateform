@@ -35,7 +35,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 	private boolean isInternal;
 	private MonetaryAmount amount;
 	@DBRef
+	@Setter
 	private User user;
-	private PersonalAccount account;
-	private BeneficiaryAccount beneficiary;
+	@Setter
+	private PersonalAccount originAccount;
+	@Setter
+	private PersonalAccount destinationAccount;
+	@Setter
+	private BeneficiaryAccount destinationBeneficiary;
 }
+

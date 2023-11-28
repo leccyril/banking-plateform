@@ -30,7 +30,8 @@ public class TransactionDto {
 	private MonetaryAmount amount;
 	private UserDto user;
 	private boolean isInternal;
-	private PersonalAccount account;
-	private BeneficiaryAccount beneficiary;
+	private PersonalAccount originAccount;
+	private PersonalAccount destinationAccount;
+	private BeneficiaryAccount destinationBeneficiary;
 }
 

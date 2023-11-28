@@ -36,7 +36,7 @@ public class Startup {
 		userRepository.deleteAll().block();
 
 		LOG.info( "Init DB" );
-		CurrencyUnit aed = Monetary.getCurrency("AED");
+		CurrencyUnit eur = Monetary.getCurrency("EUR");
 		var user = User.builder().username( "login@test.com" )
 				.id( "656315cc3b100507ed77d32a" )
 				.firstName( "first" )
@@ -46,15 +46,25 @@ public class Startup {
 				.role( Role.USER )
 				.phoneNumber( PhoneNumberUtil.getInstance().getExampleNumber( "fr" ) )
 				.accounts( List.of( PersonalAccount.builder()
-								.id( ObjectId.get().toString() )
-						.balance( Money.of( 200,aed ) )
+								.id( "656315cc3b100507ed88d32a" )
+						.balance( Money.of( 200,eur ) )
 								.type( AccountType.CURRENT )
 								.bic( "BITETEE" )
 								.bankAddress( "Luxembourg" )
-								.iban( "LU6767678808808080" )
+								.iban( "LU6767678808895080" )
 								.bankName( "ING" )
 								.swift( "SWOOOP78" )
-						.build()) )
+						.build(),
+						PersonalAccount.builder()
+								.id( "656315cc3b111507ed88d32b" )
+								.balance( Money.of( 800,eur ) )
+								.type( AccountType.SAVING )
+								.bic( "BITETEE" )
+								.bankAddress( "Luxembourg" )
+								.iban( "LU6768978808895080" )
+								.bankName( "ING" )
+								.swift( "SWOOOP78" )
+								.build()) )
 				.build();
 		userRepository.save( user ).subscribe(
 				savedUser -> LOG.info("User saved successfully: {}", savedUser.getId()),

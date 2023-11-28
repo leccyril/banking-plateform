@@ -9,7 +9,7 @@ public class TransactionMapper {
 		throw new AssertionError( "Could not be instantiate" );
 	}
 
-	public static TransactionDto mapToTransactionDto(Transaction transaction){
+	public static TransactionDto mapToTransactionDto(Transaction transaction) {
 		return TransactionDto.builder()
 				.reference( transaction.getReference() )
 				.description( transaction.getDescription() )
@@ -17,14 +17,16 @@ public class TransactionMapper {
 				.type( transaction.getType() )
 				.executionDate( transaction.getExecutionDate() )
 				.isInternal( transaction.isInternal() )
-				.user( UserMapper.mapToUserDto(transaction.getUser()) )
-				.beneficiary( transaction.getBeneficiary() )
-				.account( transaction.getAccount() )
+				.user( UserMapper.mapToUserDto( transaction.getUser() ) )
+				.destinationBeneficiary( transaction.getDestinationBeneficiary() )
+				.originAccount( transaction.getOriginAccount() )
+				.destinationAccount( transaction.getDestinationAccount() )
+				.destinationBeneficiary( transaction.getDestinationBeneficiary() )
 				.amount( transaction.getAmount() ).build();
 
 	}
 
-	public static Transaction mapToTransaction(TransactionDto transactionDto){
+	public static Transaction mapToTransaction(TransactionDto transactionDto) {
 		return Transaction.builder()
 				.reference( transactionDto.getReference() )
 				.description( transactionDto.getDescription() )
@@ -32,9 +34,11 @@ public class TransactionMapper {
 				.type( transactionDto.getType() )
 				.executionDate( transactionDto.getExecutionDate() )
 				.isInternal( transactionDto.isInternal() )
-				.user( UserMapper.mapToUser(transactionDto.getUser()) )
-				.beneficiary( transactionDto.getBeneficiary() )
-				.account( transactionDto.getAccount() )
+				.user( UserMapper.mapToUser( transactionDto.getUser() ) )
+				.destinationBeneficiary( transactionDto.getDestinationBeneficiary() )
+				.originAccount( transactionDto.getOriginAccount() )
+				.destinationAccount( transactionDto.getDestinationAccount() )
+				.destinationBeneficiary( transactionDto.getDestinationBeneficiary() )
 				.amount( transactionDto.getAmount() ).build();
 
 	}

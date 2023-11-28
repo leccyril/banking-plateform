@@ -57,9 +57,10 @@ public class ExecuteTransfert {
 				.status( TransactionStatus.IN_PROGRESS )
 				.description( transfertDto.getDescription() ).build();
 
-		return userRepository.findById( transaction.getId() )
-				.flatMap( u -> {
-					var accountOriginOptional = u.getPersonalAccounts().stream()
+		return userRepository.findById( transfertDto.getUserId() )
+				.flatMap( user -> {
+					transaction.setUser( user );
+					var accountOriginOptional = user.getPersonalAccounts().stream()
 							.filter( account -> account.getId().equals( transfertDto.getOriginAccountId() ) )
 							.findFirst();
 					if( accountOriginOptional.isEmpty() ){
@@ -68,35 +69,35 @@ public class ExecuteTransfert {
 					var accountOrigin = accountOriginOptional.get();
 					//Internal user transfer
 					if( transaction.isInternal() ){
-
-						var accountDestinationOptional = u.getPersonalAccounts().stream()
+						var accountDestinationOptional = user.getPersonalAccounts().stream()
 								.filter( account -> account.getId().equals( transfertDto.getDestinationAccountId() ) )
 								.findFirst();
 						if( accountDestinationOptional.isEmpty() ){
 							return Mono.error( new AccountNotFoundException( "Internal destination account not found" + transfertDto.getDestinationAccountId() ) );
 						}
 						var accountDestination = accountOriginOptional.get();
+						transaction.setDestinationAccount( accountDestination );
 						//Instead of using same dto we can use private record
 						//transfert amount from one account to another
 						accountOrigin.getBalance().subtract( transfertDto.getAmount() );
 						accountDestination.getBalance().add( transfertDto.getAmount() );
 						transaction.setStatus( TransactionStatus.COMPLETED );
 					}else{
-						var beneficiaryOptional = u.getBeneficiaries().stream()
+						var beneficiaryOptional = user.getBeneficiaries().stream()
 								.filter( beneficiary -> beneficiary.getId().equals( transfertDto.getBeneficiaryAccountId() ) )
 								.findFirst();
 						if( beneficiaryOptional.isEmpty() ){
 							return Mono.error( new AccountNotFoundException( "Beneficiary account not found" + transfertDto.getBeneficiaryAccountId() ) );
 						}
-
+						transaction.setDestinationBeneficiary( beneficiaryOptional.get() );
 						transfertDto.setBeneficiaryIban( beneficiaryOptional.get().getIban() );
 						transfertDto.setOriginIban( accountOrigin.getIban() );
-						//exectute external transfert
+						//execute external transfert
 						transfertRepository.executeTransfert( transfertDto );
 						transaction.setStatus( TransactionStatus.IN_PROGRESS );
 						accountOrigin.getBalance().subtract( transfertDto.getAmount() );
 					}
-					return userRepository.save( u )
+					return userRepository.save( user )
 							.then( Mono.just( transaction ) );
 				} )
 				.flatMap( transactionRepository::save )

@@ -45,7 +45,7 @@ public class ExecuteDeposit {
 							.description( "deposit" )
 							.isInternal( true )
 							.user( user )
-							.account( account ).build();
+							.originAccount( account ).build();
 
 					return userRepository.save( user )
 							.then( Mono.just( transaction ) )
