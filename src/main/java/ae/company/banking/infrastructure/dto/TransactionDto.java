@@ -1,11 +1,13 @@
 package ae.company.banking.infrastructure.dto;
 
 import ae.company.banking.configuration.converters.MoneyDeserializer;
+import ae.company.banking.configuration.converters.MoneySerializer;
 import ae.company.banking.domain.transaction.entities.TransactionStatus;
 import ae.company.banking.domain.transaction.entities.TransactionType;
 import ae.company.banking.domain.user.entities.BeneficiaryAccount;
 import ae.company.banking.domain.user.entities.PersonalAccount;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.time.LocalDate;
 import javax.money.MonetaryAmount;
 import lombok.AllArgsConstructor;
@@ -24,6 +26,7 @@ public class TransactionDto {
 	private TransactionStatus status;
 	private TransactionType type;
 	@JsonDeserialize(using = MoneyDeserializer.class)
+	@JsonSerialize(using = MoneySerializer.class)
 	private MonetaryAmount amount;
 	private UserDto user;
 	private boolean isInternal;
