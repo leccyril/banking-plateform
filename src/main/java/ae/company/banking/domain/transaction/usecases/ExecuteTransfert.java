@@ -1,6 +1,7 @@
 package ae.company.banking.domain.transaction.usecases;
 
 import ae.company.banking.application.exception.AccountNotFoundException;
+import ae.company.banking.application.exception.InsufficientBalanceException;
 import ae.company.banking.application.exception.TransferException;
 import ae.company.banking.application.exception.UserNotFoundException;
 import ae.company.banking.application.utils.TransactionUtils;
@@ -66,7 +67,13 @@ public class ExecuteTransfert {
 					if( accountOriginOptional.isEmpty() ){
 						return Mono.error( new AccountNotFoundException( "Internal origin account not found" + transfertDto.getOriginAccountId() ) );
 					}
+
 					var accountOrigin = accountOriginOptional.get();
+					if( accountOrigin.getBalance().isLessThan( transfertDto.getAmount() ) ){
+						return Mono.error( new InsufficientBalanceException() );
+					}
+					var newBalance = accountOrigin.getBalance().subtract( transfertDto.getAmount() );
+					accountOrigin.setBalance( newBalance );
 					//Internal user transfer
 					if( transaction.isInternal() ){
 						var accountDestinationOptional = user.getPersonalAccounts().stream()
@@ -79,8 +86,8 @@ public class ExecuteTransfert {
 						transaction.setDestinationAccount( accountDestination );
 						//Instead of using same dto we can use private record
 						//transfert amount from one account to another
-						accountOrigin.getBalance().subtract( transfertDto.getAmount() );
-						accountDestination.getBalance().add( transfertDto.getAmount() );
+						var amount = accountDestination.getBalance().add( transfertDto.getAmount() );
+						accountDestination.setBalance( amount );
 						transaction.setStatus( TransactionStatus.COMPLETED );
 					}else{
 						var beneficiaryOptional = user.getBeneficiaries().stream()
@@ -95,7 +102,6 @@ public class ExecuteTransfert {
 						//execute external transfert
 						transfertRepository.executeTransfert( transfertDto );
 						transaction.setStatus( TransactionStatus.IN_PROGRESS );
-						accountOrigin.getBalance().subtract( transfertDto.getAmount() );
 					}
 					return userRepository.save( user )
 							.then( Mono.just( transaction ) );
