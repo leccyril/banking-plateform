@@ -7,15 +7,50 @@
 	},
 	"item": [
 		{
+			"name": "authentication",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"login@test.com\",\n    \"password\":\"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8086/api/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8086",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "get user by id",
 			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
 				"disabledSystemHeaders": {
 					"connection": true,
 					"accept-encoding": true
 				}
 			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -26,7 +61,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"reference\":\"test\",\n    \"description\": \"deposit\",\n    \"amount\":1000,\n    \"currency\": \"AED\"\n\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -34,7 +69,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8086/api/v1/transactions/deposit",
+					"raw": "http://localhost:8086/api/v1/users/656315cc3b100507ed77d32a",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -43,8 +78,8 @@
 					"path": [
 						"api",
 						"v1",
-						"transactions",
-						"deposit"
+						"users",
+						"656315cc3b100507ed77d32a"
 					]
 				}
 			},
@@ -53,13 +88,14 @@
 		{
 			"name": "get all users",
 			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
 				"disabledSystemHeaders": {
 					"connection": true,
 					"accept-encoding": true
 				}
 			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -70,7 +106,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"reference\":\"test\",\n    \"description\": \"deposit\",\n    \"amount\":1000,\n    \"currency\": \"AED\"\n\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -78,7 +114,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8086/api/v1/transactions/deposit",
+					"raw": "http://localhost:8086/api/v1/users",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -87,8 +123,7 @@
 					"path": [
 						"api",
 						"v1",
-						"transactions",
-						"deposit"
+						"users"
 					]
 				}
 			},
