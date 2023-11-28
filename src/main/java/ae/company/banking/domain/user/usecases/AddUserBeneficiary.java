@@ -4,7 +4,7 @@ import ae.company.banking.application.exception.BeneficirayAlreadyExistsExceptio
 import ae.company.banking.application.exception.UserNotFoundException;
 import ae.company.banking.domain.user.entities.BeneficiaryAccount;
 import ae.company.banking.domain.user.entities.User;
-import ae.company.banking.infrastructure.repository.UserRepository;
+import ae.company.banking.infrastructure.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.bson.types.ObjectId;
 import reactor.core.publisher.Mono;

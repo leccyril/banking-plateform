@@ -1,6 +1,6 @@
 package ae.company.banking.infrastructure.dto;
 
-import ae.company.banking.configuration.converter.MoneyDeserializer;
+import ae.company.banking.configuration.converters.MoneyDeserializer;
 import ae.company.banking.domain.transaction.entities.TransactionStatus;
 import ae.company.banking.domain.transaction.entities.TransactionType;
 import ae.company.banking.domain.user.entities.BeneficiaryAccount;

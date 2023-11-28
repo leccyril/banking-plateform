@@ -2,14 +2,12 @@ package ae.company.banking.startup;
 
 import ae.company.banking.domain.user.entities.AccountType;
 import ae.company.banking.domain.user.entities.PersonalAccount;
+import ae.company.banking.domain.user.entities.Role;
 import ae.company.banking.domain.user.entities.User;
-import ae.company.banking.infrastructure.repository.TransactionRepository;
-import ae.company.banking.infrastructure.repository.UserRepository;
+import ae.company.banking.infrastructure.repositories.TransactionRepository;
+import ae.company.banking.infrastructure.repositories.UserRepository;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonemetadata;
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import java.util.List;
-import java.util.Objects;
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import lombok.AllArgsConstructor;
@@ -39,14 +37,13 @@ public class Startup {
 
 		LOG.info( "Init DB" );
 		CurrencyUnit aed = Monetary.getCurrency("AED");
-/*		String swissNumberStr = "044 668 18 00";
-		PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();*/
-		var user = User.builder().login( "login@test.com" )
+		var user = User.builder().username( "login@test.com" )
 				.id( "656315cc3b100507ed77d32a" )
 				.firstName( "first" )
 				.lastName( "last" )
-				.password( "password" )
+				.password( "{noop}password" )
 				.identityId( "545464" )
+				.role( Role.USER )
 				.phoneNumber( PhoneNumberUtil.getInstance().getExampleNumber( "fr" ) )
 				.accounts( List.of( PersonalAccount.builder()
 								.id( ObjectId.get().toString() )

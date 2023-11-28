@@ -1,4 +1,4 @@
-package ae.company.banking.infrastructure.repository;
+package ae.company.banking.infrastructure.repositories;
 
 import ae.company.banking.domain.user.entities.Address;
 import ae.company.banking.domain.user.entities.User;
@@ -19,7 +19,7 @@ class UserRepositoryTestIT {
 				.firstName( "firstName" )
 				.lastName( "lastname" )
 				.address( new Address("street", "city", "L7889", "Luxembourg" ) )
-				.login( "login@banking.lu" )
+				.username( "login@banking.lu" )
 				.password( "test" )
 				.build();
 

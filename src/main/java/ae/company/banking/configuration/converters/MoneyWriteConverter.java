@@ -1,4 +1,4 @@
-package ae.company.banking.configuration.converter;
+package ae.company.banking.configuration.converters;
 
 import javax.money.MonetaryAmount;
 import org.springframework.core.convert.converter.Converter;

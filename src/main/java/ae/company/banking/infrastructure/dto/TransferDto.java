@@ -1,6 +1,6 @@
 package ae.company.banking.infrastructure.dto;
 
-import ae.company.banking.configuration.converter.MoneyDeserializer;
+import ae.company.banking.configuration.converters.MoneyDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import javax.money.MonetaryAmount;
 import lombok.AllArgsConstructor;

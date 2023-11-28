@@ -1,4 +1,4 @@
-package ae.company.banking.configuration.converter;
+package ae.company.banking.configuration.converters;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

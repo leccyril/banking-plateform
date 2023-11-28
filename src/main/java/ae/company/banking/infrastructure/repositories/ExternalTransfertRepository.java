@@ -1,4 +1,4 @@
-package ae.company.banking.infrastructure.repository;
+package ae.company.banking.infrastructure.repositories;
 
 import ae.company.banking.infrastructure.dto.TransferDto;
 import org.springframework.stereotype.Repository;

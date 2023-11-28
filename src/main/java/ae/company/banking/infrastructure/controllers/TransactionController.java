@@ -1,4 +1,4 @@
-package ae.company.banking.infrastructure.controller;
+package ae.company.banking.infrastructure.controllers;
 
 import ae.company.banking.application.mapper.TransactionMapper;
 import ae.company.banking.domain.transaction.entities.Transaction;
@@ -24,7 +24,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping( "v1/transactions" )
+@RequestMapping( "api/v1/transactions" )
 public class TransactionController {
 
 	private final FindAllTransactions findAll;

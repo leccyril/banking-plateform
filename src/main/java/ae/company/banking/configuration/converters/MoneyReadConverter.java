@@ -1,4 +1,4 @@
-package ae.company.banking.configuration.converter;
+package ae.company.banking.configuration.converters;
 
 import javax.money.MonetaryAmount;
 import org.javamoney.moneta.Money;

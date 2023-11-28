@@ -1,7 +1,7 @@
 package ae.company.banking.domain.transaction.usecases;
 
 import ae.company.banking.domain.transaction.entities.Transaction;
-import ae.company.banking.infrastructure.repository.TransactionRepository;
+import ae.company.banking.infrastructure.repositories.TransactionRepository;
 import lombok.AllArgsConstructor;
 import reactor.core.publisher.Flux;
 

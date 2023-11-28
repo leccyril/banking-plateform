@@ -5,7 +5,7 @@ import ae.company.banking.application.utils.AccountUtils;
 import ae.company.banking.domain.user.entities.AccountType;
 import ae.company.banking.domain.user.entities.PersonalAccount;
 import ae.company.banking.domain.user.entities.User;
-import ae.company.banking.infrastructure.repository.UserRepository;
+import ae.company.banking.infrastructure.repositories.UserRepository;
 import javax.money.Monetary;
 import lombok.AllArgsConstructor;
 import org.bson.types.ObjectId;

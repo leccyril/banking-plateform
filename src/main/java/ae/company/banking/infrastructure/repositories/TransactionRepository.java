@@ -1,4 +1,4 @@
-package ae.company.banking.infrastructure.repository;
+package ae.company.banking.infrastructure.repositories;
 
 import ae.company.banking.domain.transaction.entities.Transaction;
 import ae.company.banking.domain.user.entities.User;

@@ -1,4 +1,4 @@
-package ae.company.banking.infrastructure.controller;
+package ae.company.banking.infrastructure.controllers;
 
 import ae.company.banking.application.mapper.BeneficiaryAccountMapper;
 import ae.company.banking.application.mapper.UserMapper;
@@ -23,7 +23,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping( "v1/users" )
+@RequestMapping( "api/v1/users" )
 public class UserController {
 
 	private final FindAllUsers findAllUsers;

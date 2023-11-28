@@ -9,15 +9,21 @@ import ae.company.banking.domain.user.usecases.AddUserAccount;
 import ae.company.banking.domain.user.usecases.AddUserBeneficiary;
 import ae.company.banking.domain.user.usecases.FindAllUsers;
 import ae.company.banking.domain.user.usecases.FindUserById;
-import ae.company.banking.infrastructure.repository.TransactionRepository;
-import ae.company.banking.infrastructure.repository.ExternalTransfertRepository;
-import ae.company.banking.infrastructure.repository.UserRepository;
+import ae.company.banking.domain.user.usecases.FindUserDetails;
+import ae.company.banking.infrastructure.repositories.ExternalTransfertRepository;
+import ae.company.banking.infrastructure.repositories.TransactionRepository;
+import ae.company.banking.infrastructure.repositories.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 public class UseCasesConfiguration {
+
+	@Bean
+	public FindUserDetails findUserDetails(UserRepository userRepository) {
+		return new FindUserDetails( userRepository );
+	}
 
 	@Bean
 	public FindAllUsers findAllUsers(UserRepository userRepository) {
@@ -58,6 +64,7 @@ public class UseCasesConfiguration {
 	public ExecuteDeposit executeDeposit(TransactionRepository transactionRepository, UserRepository userRepository) {
 		return new ExecuteDeposit( transactionRepository, userRepository );
 	}
+
 	@Bean
 	@Transactional
 	public ExecuteTransfert execute(TransactionRepository transactionRepository, UserRepository userRepository, ExternalTransfertRepository transferRepository) {

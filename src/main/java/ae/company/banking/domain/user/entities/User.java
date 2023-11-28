@@ -24,11 +24,14 @@ public class User {
 	private String firstName;
 	@Indexed( unique = true )
 	@Getter
-	private String login;
+	private String username;
+	@Getter
 	private String password;
 	private String identityId;
 	private IdentityType identityType;
+	@Getter
 	private boolean blocked;
+	@Getter
 	private Role role;
 	@Getter
 	@Setter
@@ -37,10 +40,6 @@ public class User {
 	private PhoneNumber phoneNumber;
 	private List<PersonalAccount> accounts;
 	private List<BeneficiaryAccount> beneficiaries;
-
-	public String getFullName() {
-		return firstName + " " + lastName;
-	}
 
 	public void createAccount(PersonalAccount account) {
 		this.getPersonalAccounts().add( account );
@@ -80,7 +79,7 @@ public class User {
 		if( !firstName.equals( user.firstName ) ){
 			return false;
 		}
-		if( !login.equals( user.login ) ){
+		if( !username.equals( user.username ) ){
 			return false;
 		}
 		return identityId.equals( user.identityId );
@@ -89,7 +88,7 @@ public class User {
 	public int hashCode() {
 		int result = lastName.hashCode();
 		result = 31 * result + firstName.hashCode();
-		result = 31 * result + login.hashCode();
+		result = 31 * result + username.hashCode();
 		result = 31 * result + identityId.hashCode();
 		return result;
 	}
