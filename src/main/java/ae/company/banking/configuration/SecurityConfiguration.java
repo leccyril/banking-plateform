@@ -55,6 +55,10 @@ public class SecurityConfiguration {
 						.pathMatchers( "/actuator/**" ).permitAll()
 						.pathMatchers( "/" ).permitAll()
 						.pathMatchers( "/api/v1/auth/login" ).permitAll()
+						.pathMatchers( "/api/v1/transactions/{id}" ).hasAnyAuthority( "USER")
+						.pathMatchers( "/api/v1/transactions/deposit" ).hasAnyAuthority( "USER")
+						.pathMatchers( "/api/v1/transactions/withdraw" ).hasAnyAuthority( "USER")
+						.pathMatchers( "/api/v1/transactions/transfer" ).hasAnyAuthority( "USER")
 						.anyExchange().authenticated() )
 				.addFilterAt( jwtTokenFilter, SecurityWebFiltersOrder.AUTHENTICATION )
 				.build();
