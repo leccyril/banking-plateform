@@ -6,7 +6,7 @@ import ae.company.banking.domain.transaction.entities.Transaction;
 import ae.company.banking.domain.transaction.entities.TransactionStatus;
 import ae.company.banking.domain.transaction.entities.TransactionType;
 import ae.company.banking.domain.user.entities.AccountType;
-import ae.company.banking.infrastructure.dto.inoutDto;
+import ae.company.banking.infrastructure.dto.InoutDto;
 import ae.company.banking.infrastructure.repositories.TransactionRepository;
 import ae.company.banking.infrastructure.repositories.UserRepository;
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ public class ExecuteDeposit {
 	private final TransactionRepository transactionRepository;
 	private final UserRepository userRepository;
 
-	public Mono<Transaction> execute(@NonNull inoutDto dto) {
+	public Mono<Transaction> execute(@NonNull InoutDto dto) {
 
 		return userRepository.findById( dto.getUserId() ).flatMap( user -> {
 

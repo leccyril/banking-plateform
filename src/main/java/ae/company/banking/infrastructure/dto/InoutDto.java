@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 //TODO: Create validator
-public class inoutDto {
+public class InoutDto {
 	private String userId;
 	@JsonDeserialize(using = MoneyDeserializer.class)
 	private MonetaryAmount amount;
