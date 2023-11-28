@@ -9,7 +9,7 @@ import ae.company.banking.domain.transaction.usecases.FindTransactionById;
 import ae.company.banking.infrastructure.dto.TransactionDto;
 import ae.company.banking.domain.transaction.usecases.FindAllTransactions;
 import ae.company.banking.infrastructure.dto.TransferDto;
-import ae.company.banking.infrastructure.dto.inoutDto;
+import ae.company.banking.infrastructure.dto.InoutDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,20 +50,20 @@ public class TransactionController {
 
 	@PostMapping( "/deposit" )
 	@ResponseStatus( HttpStatus.CREATED )
-	Mono<TransactionDto> deposit(@RequestBody inoutDto dto) {
-		return deposit.execute( dto ).map( TransactionMapper::mapToTransactionDto );
+	Mono<TransactionDto> deposit(@RequestBody Mono<InoutDto> dto) {
+		return dto.flatMap( deposit::execute ).map( TransactionMapper::mapToTransactionDto );
 	}
 
 	@PostMapping( "/withdraw" )
 	@ResponseStatus( HttpStatus.CREATED )
-	Mono<TransactionDto> withdraw(@RequestBody inoutDto dto) {
-		return withdraw.execute( dto ).map( TransactionMapper::mapToTransactionDto );
+	Mono<TransactionDto> withdraw(@RequestBody Mono<InoutDto> dto) {
+		return dto.flatMap( withdraw::execute ).map( TransactionMapper::mapToTransactionDto );
 	}
 
 	@PostMapping( "/transfer" )
 	@ResponseStatus( HttpStatus.CREATED )
-	Mono<TransactionDto> transfer(@RequestBody TransferDto dto) {
-		return transfer.execute( dto ).map( TransactionMapper::mapToTransactionDto );
+	Mono<TransactionDto> transfer(@RequestBody Mono<TransferDto> dto) {
+		return dto.flatMap( transfer::execute ).map( TransactionMapper::mapToTransactionDto );
 	}
 
 }
