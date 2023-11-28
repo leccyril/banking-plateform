@@ -15,6 +15,7 @@ import ae.company.banking.infrastructure.repositories.UserRepository;
 import io.micrometer.common.util.StringUtils;
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.money.MonetaryAmount;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import reactor.core.publisher.Mono;
@@ -82,12 +83,14 @@ public class ExecuteTransfert {
 						if( accountDestinationOptional.isEmpty() ){
 							return Mono.error( new AccountNotFoundException( "Internal destination account not found" + transfertDto.getDestinationAccountId() ) );
 						}
-						var accountDestination = accountOriginOptional.get();
+						var accountDestination = accountDestinationOptional.get();
 						transaction.setDestinationAccount( accountDestination );
 						//Instead of using same dto we can use private record
 						//transfert amount from one account to another
 						var amount = accountDestination.getBalance().add( transfertDto.getAmount() );
 						accountDestination.setBalance( amount );
+
+
 						transaction.setStatus( TransactionStatus.COMPLETED );
 					}else{
 						var beneficiaryOptional = user.getBeneficiaries().stream()
