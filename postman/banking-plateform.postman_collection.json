@@ -347,7 +347,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"description\":\"send money to pay april rent\",\n    \"amount\": {\n        \"amount\":300,\n        \"currency\": \"EUR\"\n    },\n    \"userId\":\"{{userId}}\",\n    \"originAccountId\":\"{{originAccountId}}\",\n    \"internal\":true,\n    \"destinationAccountId\":\"{{destinationAccountId}}\"\n}",
+					"raw": "{\n   \"description\":\"send to saving\",\n    \"amount\": {\n        \"amount\":300,\n        \"currency\": \"EUR\"\n    },\n    \"userId\":\"{{userId}}\",\n    \"originAccountId\":\"{{originAccountId}}\",\n    \"internal\":true,\n    \"destinationAccountId\":\"{{destinationAccountId}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -390,7 +390,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"description\":\"send money to pay april rent\",\n    \"amount\": {\n        \"amount\":150,\n        \"currency\": \"EUR\"\n    },\n    \"userId\":\"{{userId}}\",\n    \"originAccountId\":\"{{originAccountId}}\",\n    \"internal\":true,\n    \"destinationAccountId\":\"{{destinationAccountId}}\"\n}",
+					"raw": "{\n   \"description\":\"send to saving\",\n    \"amount\": {\n        \"amount\":150,\n        \"currency\": \"EUR\"\n    },\n    \"userId\":\"{{userId}}\",\n    \"originAccountId\":\"{{originAccountId}}\",\n    \"internal\":true,\n    \"destinationAccountId\":\"{{destinationAccountId}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -433,7 +433,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"description\":\"send money to pay april rent\",\n    \"amount\": {\n        \"amount\":150,\n        \"currency\": \"EUR\"\n    },\n    \"userId\":\"{{userId}}\",\n    \"originAccountId\":\"{{originAccountId}}\",\n    \"internal\":true,\n    \"destinationAccountId\":\"{{destinationAccountId}}\"\n}",
+					"raw": "{\n   \"description\":\"send money to pay april rent\",\n    \"amount\": {\n        \"amount\":100,\n        \"currency\": \"EUR\"\n    },\n    \"userId\":\"{{userId}}\",\n    \"originAccountId\":\"{{originAccountId}}\",\n    \"internal\":false,\n    \"beneficiaryAccountId\":\"{{beneficiaryId}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
