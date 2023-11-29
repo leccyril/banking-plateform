@@ -59,6 +59,8 @@ public class SecurityConfiguration {
 						.pathMatchers( "/api/v1/transactions/deposit" ).hasAnyAuthority( "USER")
 						.pathMatchers( "/api/v1/transactions/withdraw" ).hasAnyAuthority( "USER")
 						.pathMatchers( "/api/v1/transactions/transfer" ).hasAnyAuthority( "USER")
+						//TODO: Implement Service role for external bank
+						.pathMatchers( "/api/v1/callback/transfer" ).hasAnyAuthority( "SERVICE")
 						.anyExchange().authenticated() )
 				.addFilterAt( jwtTokenFilter, SecurityWebFiltersOrder.AUTHENTICATION )
 				.build();
