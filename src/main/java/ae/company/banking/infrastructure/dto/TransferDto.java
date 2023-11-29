@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 //TODO: Create validator
-public class InternalTransferDto {
+public class TransferDto {
 	private String reference;
 	private String description;
 	@JsonDeserialize(using = MoneyDeserializer.class)

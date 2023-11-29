@@ -9,7 +9,7 @@ import ae.company.banking.domain.transaction.entities.Transaction;
 import ae.company.banking.domain.transaction.entities.TransactionStatus;
 import ae.company.banking.domain.transaction.entities.TransactionType;
 import ae.company.banking.infrastructure.dto.ExternalTransferDto;
-import ae.company.banking.infrastructure.dto.InternalTransferDto;
+import ae.company.banking.infrastructure.dto.TransferDto;
 import ae.company.banking.infrastructure.repositories.TransactionRepository;
 import ae.company.banking.infrastructure.repositories.ExternalTransfertRepository;
 import ae.company.banking.infrastructure.repositories.UserRepository;
@@ -27,7 +27,7 @@ public class ExecuteTransfert {
 	private final UserRepository userRepository;
 	private final ExternalTransfertRepository transfertRepository;
 
-	public Mono<Transaction> execute(@NonNull InternalTransferDto transfertDto) {
+	public Mono<Transaction> execute(@NonNull TransferDto transfertDto) {
 
 		if( StringUtils.isEmpty( transfertDto.getUserId() ) ){
 			throw new UserNotFoundException();

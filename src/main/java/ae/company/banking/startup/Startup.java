@@ -1,6 +1,7 @@
 package ae.company.banking.startup;
 
 import ae.company.banking.domain.user.entities.AccountType;
+import ae.company.banking.domain.user.entities.BeneficiaryAccount;
 import ae.company.banking.domain.user.entities.PersonalAccount;
 import ae.company.banking.domain.user.entities.Role;
 import ae.company.banking.domain.user.entities.User;
@@ -23,20 +24,19 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class Startup {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Startup.class);
-
+	private static final Logger LOG = LoggerFactory.getLogger( Startup.class );
 
 	private final UserRepository userRepository;
 	private final TransactionRepository transactionRepository;
 
-	@EventListener( ApplicationReadyEvent.class)
+	@EventListener( ApplicationReadyEvent.class )
 	public void initApplication() {
 
 		transactionRepository.deleteAll().block();
 		userRepository.deleteAll().block();
 
 		LOG.info( "Init DB" );
-		CurrencyUnit eur = Monetary.getCurrency("EUR");
+		CurrencyUnit eur = Monetary.getCurrency( "EUR" );
 		var user = User.builder().username( "login@test.com" )
 				.id( "656315cc3b100507ed77d32a" )
 				.firstName( "first" )
@@ -47,28 +47,38 @@ public class Startup {
 				.phoneNumber( PhoneNumberUtil.getInstance().getExampleNumber( "fr" ) )
 				.accounts( List.of( PersonalAccount.builder()
 								.id( "656315cc3b100507ed88d32a" )
-						.balance( Money.of( 200,eur ) )
+								.balance( Money.of( 200, eur ) )
 								.type( AccountType.CURRENT )
 								.bic( "BITETEE" )
 								.bankAddress( "Luxembourg" )
 								.iban( "LU6767678808895080" )
 								.bankName( "ING" )
 								.swift( "SWOOOP78" )
-						.build(),
+								.build(),
 						PersonalAccount.builder()
 								.id( "656315cc3b111507ed88d32b" )
-								.balance( Money.of( 800,eur ) )
+								.balance( Money.of( 800, eur ) )
 								.type( AccountType.SAVING )
 								.bic( "BITETEE" )
 								.bankAddress( "Luxembourg" )
 								.iban( "LU6768978808895080" )
 								.bankName( "ING" )
 								.swift( "SWOOOP78" )
-								.build()) )
+								.build() ) )
+				.beneficiaries( List.of( BeneficiaryAccount.builder()
+						.id( "787315cc3b100507ed88d32a" )
+						.iban( "LU6768952808895080" )
+						.bankName( "BNP" )
+						.bankAddress( "France" )
+						.swift( "SWBNPKOUIUI" )
+						.firstName( "test destination" )
+						.lastName( "test lastname" )
+						.bic( "BNPJJHXXX" )
+						.build() ) )
 				.build();
 		userRepository.save( user ).subscribe(
-				savedUser -> LOG.info("User saved successfully: {}", savedUser.getId()),
-				error -> LOG.error("Error saving user", error)
+				savedUser -> LOG.info( "User saved successfully: {}", savedUser.getId() ),
+				error -> LOG.error( "Error saving user", error )
 		);
 		LOG.info( "DB initialized" );
 	}
