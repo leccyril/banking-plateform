@@ -43,4 +43,12 @@ public class ApplicationControllerAdvice {
 	String transferErrorHandler(BeneficirayAlreadyExistsException ex) {
 		return ex.getMessage();
 	}
+
+	@ResponseBody
+	@ExceptionHandler( Exception.class)
+	@ResponseStatus( HttpStatus.BAD_REQUEST)
+	String transferErrorHandler(Exception ex) {
+		return ex.getMessage();
+	}
+
 }
