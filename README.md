@@ -21,6 +21,12 @@ In this hexagonal architecture we do not represent clearly ports and adaptors be
 
 monolithic application is used here because no so much code, bit with this architecture we can easily start to move authentication in a dedicated service.
 
+### Benefit of using reactive projects
+![Reactive technology.](/images/springreactive.png)
+
+#### Comparaison between webflux and spring mvc
+![comparaison.](/images/comparaison.png)
+
 ## Remarks
 
 * We used mapper and dto just for the poc, in reality it is often not useful (but incoming object request is)
