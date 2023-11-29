@@ -39,21 +39,21 @@ public class UserController {
 				.switchIfEmpty( Flux.empty() );
 	}
 
-	@GetMapping( "{id}" )
+	@GetMapping( "{accountId}" )
 	@ResponseStatus( HttpStatus.OK )
-	Mono<UserDto> getTransaction(@PathVariable String id) {
-		return findUserById.findById( id ).map( UserMapper::mapToUserDto );
+	Mono<UserDto> getTransaction(@PathVariable String accountId) {
+		return findUserById.findById( accountId ).map( UserMapper::mapToUserDto );
 	}
 
-	@PostMapping( "{id}/{accountType}" )
+	@PostMapping( "{accountId}/{accountType}" )
 	@ResponseStatus( HttpStatus.CREATED )
-	Mono<UserDto> createAccount(@PathVariable String id, @PathVariable AccountType accountType) {
-		return addAccount.execute( id, accountType ).map( UserMapper::mapToUserDto );
+	Mono<UserDto> createAccount(@PathVariable String accountId, @PathVariable AccountType accountType) {
+		return addAccount.execute( accountId, accountType ).map( UserMapper::mapToUserDto );
 	}
 
-	@PostMapping( "{id}/beneficiaries" )
+	@PostMapping( "{accountId}/beneficiaries" )
 	@ResponseStatus( HttpStatus.CREATED )
-	Mono<UserDto> addBeneficiary(@PathVariable String id, @RequestBody BeneficiaryAccountDto dto) {
-		return addBeneficiary.execute( id, BeneficiaryAccountMapper.mapToAccount( dto ) ).map( UserMapper::mapToUserDto );
+	Mono<UserDto> addBeneficiary(@PathVariable String accountId, @RequestBody BeneficiaryAccountDto dto) {
+		return addBeneficiary.execute( accountId, BeneficiaryAccountMapper.mapToAccount( dto ) ).map( UserMapper::mapToUserDto );
 	}
 }
