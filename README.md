@@ -70,7 +70,7 @@ mvn spring-boot:run
 
 ## Test project
 
-1. you can explore http://localhost:8086/api to consult the Rest api documentation
+1. you can explore http://localhost:8086/api to consult the Rest api documentation (Not anymore active cause webflux bug, still in progress)
 2. You can use in folder /postman the postman queries to add account, add beneficiaries, or execute transactions.
 3. User with accounts is created in Startup class.
 
