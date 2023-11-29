@@ -7,11 +7,14 @@
 * MongoDB
 * Reactive Mongo
 * SpringBoot 3.2
+* Spring webflux
+* Spring security 6
 * Rest API
 * Jwt authentication
 * Junit tests
-* Postman collections
+* Postman collections end to end test
 * Lombok
+* Docker for MongoDB database
 
 The hexagonal architecture is same as clean architecture but adding port and adaptors and domain want should be totally agnostic about framework, often hexagonal architecture is called clean architecture.
 In this hexagonal architecture we do not represent clearly ports and adaptors because it is really clear in the code what is what :
@@ -69,6 +72,7 @@ mvn spring-boot:run
 
 1. you can explore http://localhost:8086/api to consult the Rest api documentation
 2. You can use in folder /postman the postman queries to add account, add beneficiaries, or execute transactions.
+3. User with accounts is created in Startup class.
 
 ### Project health
 
