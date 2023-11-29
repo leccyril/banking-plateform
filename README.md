@@ -2,7 +2,7 @@
 
 ![Clean architecture.](/images/cleanarchi.webp)
 ### The main concepts and technologies used in this projects are :
-* Hexagonal architecture
+* Hexagonal/clean architecture
 * Reactive streams
 * MongoDB
 * Reactive Mongo
@@ -13,8 +13,8 @@
 * Postman collections
 * Lombok
 
-The hexagonal architecture is same as clean architecture but adding port and adaptors, often hexagonal architecture is called clean architecture.
-In this hegaxonal architecture we do not represent clearly ports and adaptors because it is really clear in the code what is what :
+The hexagonal architecture is same as clean architecture but adding port and adaptors and domain want should be totally agnostic about framework, often hexagonal architecture is called clean architecture.
+In this hexagonal architecture we do not represent clearly ports and adaptors because it is really clear in the code what is what :
 
 * Primary adaptors: Rest api controller. (in)
 * secondary adaptors: Db and external services. (out)
@@ -26,9 +26,11 @@ monolithic application is used here because no so much code, bit with this archi
 * We used mapper and dto just for the poc, in reality it is often not useful (but incoming object request is)
 * In this project also we have a startup class will delete all collections and recreate some objects used in the postman collections
 * Embedded Mongo database can be used but need more configurations
-* MongoDb is used, maybe it is not th ebest solution as in this kind of application we should use a relational database with more integrity constraint, but it is simple and fast to put in place and do not need any schem update on ecah notification, and we wanted to point out the reactive streams with Reactive mongo that is a great technology.
+* MongoDb is used, maybe it is not the best solution as in this kind of application we should use a relational database with more integrity constraint, but it is simple and fast to put in place and do not need any schem update on ecah notification, and we wanted to point out the reactive streams with Reactive mongo that is a great technology.
 * Rest api exceptions are managed since SpringBoot 3.2 in one Handler class : ApplicationControllerAdvice.java
-* Lombok @Data is not used to not break POO principes
+* Lombok @Data is not used to not break POO principles
+* We use conventional RestController annotations because it is more easy to code
+* We also have an example of functional RestController used with webflux TestHandler /hello
 
 # How to start project
 
@@ -36,8 +38,8 @@ monolithic application is used here because no so much code, bit with this archi
 
 You’ll start by editing this README file to learn how to edit a file in Bitbucket.
 
-1. Go in database folder in terminal
-2. execute command :s
+1. Go in /database folder in terminal
+2. execute command :
 ```
 docker-compose up -d
 ```
