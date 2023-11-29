@@ -41,8 +41,8 @@ public class UserController {
 
 	@GetMapping( "{id}" )
 	@ResponseStatus( HttpStatus.OK )
-	Mono<UserDto> getTransaction(@PathVariable Mono<String> id) {
-		return id.flatMap( findUserById::findById ).map( UserMapper::mapToUserDto );
+	Mono<UserDto> getTransaction(@PathVariable String id) {
+		return findUserById.findById( id ).map( UserMapper::mapToUserDto );
 	}
 
 	@PostMapping( "{id}/{accountType}" )
