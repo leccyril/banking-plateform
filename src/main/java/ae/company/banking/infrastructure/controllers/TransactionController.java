@@ -8,7 +8,7 @@ import ae.company.banking.domain.transaction.usecases.ExecuteWithdraw;
 import ae.company.banking.domain.transaction.usecases.FindTransactionById;
 import ae.company.banking.infrastructure.dto.TransactionDto;
 import ae.company.banking.domain.transaction.usecases.FindAllTransactions;
-import ae.company.banking.infrastructure.dto.InternalTransferDto;
+import ae.company.banking.infrastructure.dto.TransferDto;
 import ae.company.banking.infrastructure.dto.InoutDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -62,7 +62,7 @@ public class TransactionController {
 
 	@PostMapping( "/transfer" )
 	@ResponseStatus( HttpStatus.CREATED )
-	Mono<TransactionDto> transfer(@RequestBody Mono<InternalTransferDto> dto) {
+	Mono<TransactionDto> transfer(@RequestBody Mono<TransferDto> dto) {
 		return dto.flatMap( transfer::execute ).map( TransactionMapper::mapToTransactionDto );
 	}
 
