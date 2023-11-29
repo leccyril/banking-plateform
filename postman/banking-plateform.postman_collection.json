@@ -84,7 +84,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8086/api/v1/users/656315cc3b100507ed77d32a",
+					"raw": "http://localhost:8086/api/v1/users/{{userId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -94,7 +94,7 @@
 						"api",
 						"v1",
 						"users",
-						"656315cc3b100507ed77d32a"
+						"{{userId}}"
 					]
 				}
 			},
@@ -323,6 +323,135 @@
 						"v1",
 						"transactions",
 						"withdraw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "execute internal transfert fail",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"connection": true,
+					"accept-encoding": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"description\":\"send money to pay april rent\",\n    \"amount\": {\n        \"amount\":300,\n        \"currency\": \"EUR\"\n    },\n    \"userId\":\"{{userId}}\",\n    \"originAccountId\":\"{{originAccountId}}\",\n    \"internal\":true,\n    \"destinationAccountId\":\"{{destinationAccountId}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8086/api/v1/transactions/transfer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8086",
+					"path": [
+						"api",
+						"v1",
+						"transactions",
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "execute internal transfert success",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"connection": true,
+					"accept-encoding": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"description\":\"send money to pay april rent\",\n    \"amount\": {\n        \"amount\":150,\n        \"currency\": \"EUR\"\n    },\n    \"userId\":\"{{userId}}\",\n    \"originAccountId\":\"{{originAccountId}}\",\n    \"internal\":true,\n    \"destinationAccountId\":\"{{destinationAccountId}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8086/api/v1/transactions/transfer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8086",
+					"path": [
+						"api",
+						"v1",
+						"transactions",
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "execute external transfert success",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"connection": true,
+					"accept-encoding": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"description\":\"send money to pay april rent\",\n    \"amount\": {\n        \"amount\":150,\n        \"currency\": \"EUR\"\n    },\n    \"userId\":\"{{userId}}\",\n    \"originAccountId\":\"{{originAccountId}}\",\n    \"internal\":true,\n    \"destinationAccountId\":\"{{destinationAccountId}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8086/api/v1/transactions/transfer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8086",
+					"path": [
+						"api",
+						"v1",
+						"transactions",
+						"transfer"
 					]
 				}
 			},
