@@ -8,14 +8,14 @@ import ae.company.banking.application.utils.TransactionUtils;
 import ae.company.banking.domain.transaction.entities.Transaction;
 import ae.company.banking.domain.transaction.entities.TransactionStatus;
 import ae.company.banking.domain.transaction.entities.TransactionType;
-import ae.company.banking.infrastructure.dto.TransferDto;
+import ae.company.banking.infrastructure.dto.ExternalTransferDto;
+import ae.company.banking.infrastructure.dto.InternalTransferDto;
 import ae.company.banking.infrastructure.repositories.TransactionRepository;
 import ae.company.banking.infrastructure.repositories.ExternalTransfertRepository;
 import ae.company.banking.infrastructure.repositories.UserRepository;
 import io.micrometer.common.util.StringUtils;
 import java.time.LocalDate;
 import java.util.Objects;
-import javax.money.MonetaryAmount;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import reactor.core.publisher.Mono;
@@ -27,7 +27,7 @@ public class ExecuteTransfert {
 	private final UserRepository userRepository;
 	private final ExternalTransfertRepository transfertRepository;
 
-	public Mono<Transaction> execute(@NonNull TransferDto transfertDto) {
+	public Mono<Transaction> execute(@NonNull InternalTransferDto transfertDto) {
 
 		if( StringUtils.isEmpty( transfertDto.getUserId() ) ){
 			throw new UserNotFoundException();
@@ -75,6 +75,7 @@ public class ExecuteTransfert {
 					}
 					var newBalance = accountOrigin.getBalance().subtract( transfertDto.getAmount() );
 					accountOrigin.setBalance( newBalance );
+					Mono<Void> transferOperation;
 					//Internal user transfer
 					if( transaction.isInternal() ){
 						var accountDestinationOptional = user.getPersonalAccounts().stream()
@@ -89,24 +90,32 @@ public class ExecuteTransfert {
 						//transfert amount from one account to another
 						var amount = accountDestination.getBalance().add( transfertDto.getAmount() );
 						accountDestination.setBalance( amount );
-
-
 						transaction.setStatus( TransactionStatus.COMPLETED );
+						transferOperation = Mono.empty();
 					}else{
+
 						var beneficiaryOptional = user.getBeneficiaries().stream()
 								.filter( beneficiary -> beneficiary.getId().equals( transfertDto.getBeneficiaryAccountId() ) )
 								.findFirst();
 						if( beneficiaryOptional.isEmpty() ){
 							return Mono.error( new AccountNotFoundException( "Beneficiary account not found" + transfertDto.getBeneficiaryAccountId() ) );
 						}
+						var externalTransfertDto = ExternalTransferDto.builder()
+								.reference( TransactionUtils.generateReference() )
+								.date( LocalDate.now() )
+								.amount( transfertDto.getAmount() )
+								.description( transfertDto.getDescription() )
+								.beneficiaryIban( beneficiaryOptional.get().getIban() )
+								.originIban( accountOrigin.getIban() ).build();
+
 						transaction.setDestinationBeneficiary( beneficiaryOptional.get() );
-						transfertDto.setBeneficiaryIban( beneficiaryOptional.get().getIban() );
-						transfertDto.setOriginIban( accountOrigin.getIban() );
 						//execute external transfert
-						transfertRepository.executeTransfert( transfertDto );
-						transaction.setStatus( TransactionStatus.IN_PROGRESS );
+						transferOperation = transfertRepository.executeTransfert( Mono.just( externalTransfertDto ) )
+								.doOnSuccess( unusued -> transaction.setStatus( TransactionStatus.IN_PROGRESS ) )
+								.doOnError( unusued -> transaction.setStatus( TransactionStatus.ERROR ) );
 					}
-					return userRepository.save( user )
+					return transferOperation
+							.then( userRepository.save( user ) )
 							.then( Mono.just( transaction ) );
 				} )
 				.flatMap( transactionRepository::save )
