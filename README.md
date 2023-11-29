@@ -62,10 +62,29 @@ docker-compose down
 
 
 ## Launch project
-1. In terminal root project run
+### prerequites :
+
+Maven, java
+
+1. In terminal root project folder (pom.xml file level) run
 ```
 mvn spring-boot:run
 ```
+or
+```
+./mvnw spring-boot:run
+```
+or run
+```
+mvn clean install
+```
+
+and then 
+```
+java -jar [jarName].jar
+```
+
+
 2. You can access rest api doc on localhost:8086/api
 
 ## Test project
