@@ -45,11 +45,6 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
 		return http
-				.formLogin( FormLoginSpec::disable )
-				.logout( LogoutSpec::disable )
-				.httpBasic( HttpBasicSpec::disable )
-				.cors( CorsSpec::disable )
-				.csrf( CsrfSpec::disable )
 				.authorizeExchange( exchanges -> exchanges
 						.pathMatchers( HttpMethod.OPTIONS, "/**").permitAll()  // let the frontend preflight requests succeed without authentication.permitAll()
 						.pathMatchers( "/actuator/**" ).permitAll()
@@ -62,6 +57,11 @@ public class SecurityConfiguration {
 						//TODO: Implement Service role for external bank
 						.pathMatchers( "/api/v1/callback/transfer" ).hasAnyAuthority( "SERVICE")
 						.anyExchange().authenticated() )
+				.formLogin( FormLoginSpec::disable )
+				.logout( LogoutSpec::disable )
+				.httpBasic( HttpBasicSpec::disable )
+				.cors( CorsSpec::disable )
+				.csrf( CsrfSpec::disable )
 				.addFilterAt( jwtTokenFilter, SecurityWebFiltersOrder.AUTHENTICATION )
 				.build();
 	}
