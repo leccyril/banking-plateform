@@ -7,10 +7,7 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 import org.springframework.web.reactive.config.EnableWebFlux;
 
-@EnableReactiveMongoRepositories (basePackageClasses = BankingApplication.class)
 @SpringBootApplication
-@EnableMongoAuditing
-@EnableWebFlux
 @ConfigurationPropertiesScan
 public class BankingApplication {
 
