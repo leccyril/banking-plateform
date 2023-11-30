@@ -89,10 +89,11 @@ java -jar [jarName].jar
 
 ## Test project
 
-1. you can explore http://localhost:8086/api to consult the Rest api documentation (Not anymore active cause webflux bug, still in progress)
-2. You can use in folder /postman the postman queries to add account, add beneficiaries, or execute transactions.
-3. User with accounts is created in Startup class.
+1. Explore http://localhost:8086/api to consult the Rest api documentation (Not anymore active cause webflux bug, still in progress)
+2. Use in folder /postman the postman queries to add account, add beneficiaries, or execute transactions.
+4. Import in postman environment variables and collection and just run it, token will be took automatically to fill header for following queries.
+5. User with accounts is created in Startup class.
 
 ### Project health
 
-You can access to project health with this url : http://localhost:8086/api/actuator and for example to check if the service is up : http://localhost:8086/api/actuator/health
+Access to project health with this url : http://localhost:8086/api/actuator and for example to check if the service is up : http://localhost:8086/api/actuator/health
