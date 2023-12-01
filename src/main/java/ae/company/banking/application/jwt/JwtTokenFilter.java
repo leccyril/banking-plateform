@@ -18,7 +18,6 @@ import reactor.core.scheduler.Schedulers;
 public class JwtTokenFilter implements WebFilter {
 
 	public static final String HEADER_PREFIX = "Bearer ";
-
 	private final JwtTokenProvider tokenProvider;
 
 	@Override
