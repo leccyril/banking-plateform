@@ -1,6 +1,5 @@
 package ae.company.banking.infrastructure.controllers;
 
-import ae.company.banking.WebFluxControllerSecurityTestConfig;
 import ae.company.banking.application.jwt.JwtTokenFilter;
 import ae.company.banking.domain.user.entities.AccountType;
 import ae.company.banking.domain.user.entities.BeneficiaryAccount;
@@ -13,6 +12,7 @@ import ae.company.banking.domain.user.usecases.FindAllUsers;
 import ae.company.banking.domain.user.usecases.FindUserById;
 import ae.company.banking.infrastructure.dto.UserDto;
 import ae.company.banking.infrastructure.repositories.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,17 +20,14 @@ import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.web.server.context.SecurityContextServerWebExchangeWebFilter;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
@@ -38,11 +35,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.springSecurity;
 
-@AutoConfigureWebTestClient
-@AutoConfigureRestDocs
-@ExtendWith( SpringExtension.class )
 @WebFluxTest( controllers = UserController.class )
-@Import( { FindUserById.class, FindAllUsers.class, AddUserAccount.class, AddUserBeneficiary.class, WebFluxControllerSecurityTestConfig.class } )
+@Import( { FindUserById.class, FindAllUsers.class, AddUserAccount.class, AddUserBeneficiary.class } )
 class UserControllerTest {
 	@Autowired
 	UserController controller;
@@ -52,6 +46,9 @@ class UserControllerTest {
 
 	@MockBean
 	JwtTokenFilter filter;
+
+	@Autowired
+	ObjectMapper mapper;
 
 	@Test
 	@WithMockUser
@@ -124,16 +121,21 @@ class UserControllerTest {
 				.thenReturn( Mono.just( user ) );
 		when( repository.save( user ) )
 				.thenReturn( Mono.just( user ) );
-		var testClient = WebTestClient.bindToController( controller ).webFilter( new SecurityContextServerWebExchangeWebFilter() )
+		var testClient = WebTestClient
+
+				.bindToController( controller ).webFilter( new SecurityContextServerWebExchangeWebFilter() )
 				.apply( springSecurity() )
 				.build();
 		testClient
+				.mutate()
+				.codecs( clientCodecConfigurer ->
+						clientCodecConfigurer.defaultCodecs()
+								.jackson2JsonDecoder( new Jackson2JsonDecoder( mapper ) ) ).build()
 				.post().uri( "/api/v1/users/4787889456456456456frfrfrf87/SAVING" )
 				.exchange()
-				.expectStatus().isCreated();
-		//TODO: add custom serializer on test configuration
-			/*	.expectBodyList( UserDto.class )
-				.hasSize( 1 );*/
+				.expectStatus().isCreated()
+				.expectBodyList( UserDto.class )
+				.hasSize( 1 );
 		Mockito.verify( repository, times( 1 ) ).save( user );
 	}
 
