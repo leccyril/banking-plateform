@@ -144,6 +144,72 @@
 			"response": []
 		},
 		{
+			"name": "get balance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Balance is present\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"amount\");",
+							"    let responseData = pm.response.json();",
+							"    console.log(responseData.amount)",
+							"});",
+							"",
+							" pm.test(\"test balance\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.amount).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {
+					"connection": true,
+					"accept-encoding": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8086/api/v1/users/{{userId}}/balance/656315cc3b100507ed88d32a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8086",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"{{userId}}",
+						"balance",
+						"656315cc3b100507ed88d32a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "add beneficiary success",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {
