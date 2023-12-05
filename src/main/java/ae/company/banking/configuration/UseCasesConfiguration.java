@@ -7,12 +7,14 @@ import ae.company.banking.domain.transaction.usecases.FindAllTransactions;
 import ae.company.banking.domain.transaction.usecases.FindTransactionById;
 import ae.company.banking.domain.user.usecases.AddUserAccount;
 import ae.company.banking.domain.user.usecases.AddUserBeneficiary;
+import ae.company.banking.domain.user.usecases.CheckBalance;
 import ae.company.banking.domain.user.usecases.FindAllUsers;
 import ae.company.banking.domain.user.usecases.FindUserById;
 import ae.company.banking.domain.user.usecases.FindUserDetails;
 import ae.company.banking.infrastructure.repositories.ExternalTransfertRepository;
 import ae.company.banking.infrastructure.repositories.TransactionRepository;
 import ae.company.banking.infrastructure.repositories.UserRepository;
+import ae.company.banking.infrastructure.repositories.UserRepositoryImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +45,11 @@ public class UseCasesConfiguration {
 	@Bean
 	public AddUserBeneficiary addUserBeneficiary(UserRepository userRepository) {
 		return new AddUserBeneficiary( userRepository );
+	}
+
+	@Bean
+	public CheckBalance checkAccountBalance(UserRepositoryImpl userRepository) {
+		return new CheckBalance( userRepository );
 	}
 
 	@Bean

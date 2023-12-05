@@ -50,6 +50,7 @@ public class SecurityConfiguration {
 						.pathMatchers( "/actuator/**" ).permitAll()
 						.pathMatchers( "/explorer/**" ).permitAll()
 						.pathMatchers( "/api/v1/auth/login" ).permitAll()
+						.pathMatchers( "/api/v1/users/{userId}/balance/{accountId}" ).hasAnyAuthority( "USER")
 						.pathMatchers( "/api/v1/transactions/{id}" ).hasAnyAuthority( "USER")
 						.pathMatchers( "/api/v1/transactions/deposit" ).hasAnyAuthority( "USER")
 						.pathMatchers( "/api/v1/transactions/withdraw" ).hasAnyAuthority( "USER")
