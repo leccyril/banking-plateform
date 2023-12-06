@@ -8,10 +8,12 @@ import ae.company.banking.domain.user.entities.Role;
 import ae.company.banking.domain.user.entities.User;
 import ae.company.banking.domain.user.usecases.AddUserAccount;
 import ae.company.banking.domain.user.usecases.AddUserBeneficiary;
+import ae.company.banking.domain.user.usecases.CheckBalance;
 import ae.company.banking.domain.user.usecases.FindAllUsers;
 import ae.company.banking.domain.user.usecases.FindUserById;
 import ae.company.banking.infrastructure.dto.UserDto;
 import ae.company.banking.infrastructure.repositories.UserRepository;
+import ae.company.banking.infrastructure.repositories.UserRepositoryImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,13 +38,16 @@ import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.springSecurity;
 
 @WebFluxTest( controllers = UserController.class )
-@Import( { FindUserById.class, FindAllUsers.class, AddUserAccount.class, AddUserBeneficiary.class } )
+@Import( { FindUserById.class, FindAllUsers.class, AddUserAccount.class, AddUserBeneficiary.class, CheckBalance.class } )
 class UserControllerTest {
 	@Autowired
 	UserController controller;
 
 	@MockBean
 	UserRepository repository;
+
+	@MockBean
+	UserRepositoryImpl repositoryImpl;
 
 	@MockBean
 	JwtTokenFilter filter;
