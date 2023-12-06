@@ -13,6 +13,7 @@ import ae.company.banking.infrastructure.dto.UserDto;
 import javax.money.MonetaryAmount;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @AllArgsConstructor
+@Validated
 @RequestMapping( "api/v1/users" )
 public class UserController {
 

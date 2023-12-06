@@ -10,8 +10,10 @@ import ae.company.banking.infrastructure.dto.TransactionDto;
 import ae.company.banking.domain.transaction.usecases.FindAllTransactions;
 import ae.company.banking.infrastructure.dto.TransferDto;
 import ae.company.banking.infrastructure.dto.InoutDto;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +26,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @AllArgsConstructor
+@Validated
 @RequestMapping( "api/v1/transactions" )
 public class TransactionController {
 
@@ -50,7 +53,7 @@ public class TransactionController {
 
 	@PostMapping( "/deposit" )
 	@ResponseStatus( HttpStatus.CREATED )
-	Mono<TransactionDto> deposit(@RequestBody Mono<InoutDto> dto) {
+	Mono<TransactionDto> deposit(@Valid @RequestBody Mono<InoutDto> dto) {
 		return dto.flatMap( deposit::execute ).map( TransactionMapper::mapToTransactionDto );
 	}
 
