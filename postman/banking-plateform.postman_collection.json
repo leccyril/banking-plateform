@@ -306,28 +306,17 @@
 				}
 			},
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "${{token}}",
-							"type": "string"
-						}
-					]
-				},
 				"method": "POST",
 				"header": [
 					{
-						"key": "Content-Type",
-						"value": "",
-						"type": "text",
-						"disabled": true
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"userId\":\"656315cc3b100507ed77d32a\",\n    \"amount\": {\n        \"amount\":300,\n        \"currency\": \"AED\"\n    }\n}",
+					"raw": "{\n   \"userId\":\"656315cc3b100507ed77d32a\",\n   \"amount\": {\n        \"amount\":300,\n        \"currency\": \"EUR\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -370,7 +359,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"userId\":\"656315cc3b100507ed77d32a\",\n    \"amount\": {\n        \"amount\":300,\n        \"currency\": \"AED\"\n    }\n}",
+					"raw": "{\n   \"userId\":\"656315cc3b100507ed77d32a\",\n    \"amount\": {\n        \"amount\":300,\n        \"currency\": \"EUR\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
