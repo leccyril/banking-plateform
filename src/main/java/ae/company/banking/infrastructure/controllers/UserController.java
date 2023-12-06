@@ -10,6 +10,7 @@ import ae.company.banking.domain.user.usecases.FindAllUsers;
 import ae.company.banking.domain.user.usecases.FindUserById;
 import ae.company.banking.infrastructure.dto.BeneficiaryAccountDto;
 import ae.company.banking.infrastructure.dto.UserDto;
+import jakarta.validation.Valid;
 import javax.money.MonetaryAmount;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @AllArgsConstructor
+//TODO: fix bean validation
 @Validated
 @RequestMapping( "api/v1/users" )
 public class UserController {
@@ -58,7 +60,7 @@ public class UserController {
 
 	@PostMapping( "{userId}/beneficiaries" )
 	@ResponseStatus( HttpStatus.CREATED )
-	Mono<UserDto> addBeneficiary(@PathVariable String userId, @RequestBody BeneficiaryAccountDto dto) {
+	Mono<UserDto> addBeneficiary(@PathVariable String userId, @RequestBody @Valid BeneficiaryAccountDto dto) {
 		return addBeneficiary.execute( userId, BeneficiaryAccountMapper.mapToAccount( dto ) ).map( UserMapper::mapToUserDto );
 	}
 
