@@ -27,7 +27,6 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @AllArgsConstructor
-//TODO: fix bean validation
 @Validated
 @RequestMapping( "api/v1/users" )
 public class UserController {
